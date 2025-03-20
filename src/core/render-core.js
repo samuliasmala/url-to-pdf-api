@@ -108,7 +108,7 @@ async function render(_opts = {}) {
     await page.setViewport(opts.viewport);
     if (opts.emulateScreenMedia) {
       logger.info('Emulate @media screen..');
-      await page.emulateMedia('screen');
+      await page.emulateMediaType('screen');
     }
 
     if (opts.cookies && opts.cookies.length > 0) {
@@ -172,7 +172,7 @@ async function render(_opts = {}) {
         const height = await getFullPageHeight(page);
         opts.pdf.height = height;
       }
-      data = await page.pdf(opts.pdf);
+      data = Buffer.from(await page.pdf(opts.pdf));
     } else if (opts.output === 'html') {
       data = await page.evaluate(() => document.documentElement.innerHTML);
     } else {
